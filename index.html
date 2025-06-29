@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuvify - Planos IPTV Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #009ffd;
+            --accent: #ff6b6b;
+            --light: #f7f9fc;
+            --dark: #232528;
+            --success: #2ecc71;
+            --dark-bg: #0d0f1a;
+            --popular-bg: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            --gradient-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --gradient-secondary: linear-gradient(135deg, #009ffd 0%, #00c6ff 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        html, body {
+            background: var(--dark-bg);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Modernizado */
+        header {
+            background: rgba(13, 15, 26, 0.95);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 159, 253, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--secondary), #00c6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            color: var(--secondary);
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover i {
+            transform: rotate(15deg);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 0.95rem;
+            padding: 8px 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-secondary);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 159, 253, 0.3);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00c6ff, #009ffd);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 159, 253, 0.5);
+        }
+        
+        .btn:hover::before {
+            opacity: 1;
+        }
+        
+        .btn-accent {
+            background: linear-gradient(45deg, var(--accent), #ff8e8e);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-accent::before {
+            background: linear-gradient(45deg, #ff8e8e, var(--accent));
+        }
+        
+        .btn-accent:hover {
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.5);
+        }
+        
+        .mobile-btn {
+            display: none;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        /* IMPORTANTE: Hamburguer só visível em mobile */
+        .hamburger {
+            display: none; /* Escondido por padrão (desktop) */
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            z-index: 1001;
+            position: relative;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hamburger:hover {
+            background: rgba(0, 159, 253, 0.15);
+            transform: scale(1.05);
+        }
+        
+        .hamburger:active {
+            transform: scale(0.95);
+        }
+        
+        /* Hero Section Modernizada */
+        .hero {
+            padding: 160px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--dark-bg);
+        }
+        
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+        
+        .hero h2 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 800;
+            max-width: 800px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero h2 span {
+            background: linear-gradient(45deg, var(--secondary), #00c6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 35px;
+            color: #d0e6ff;
+            font-weight: 300;
+        }
+        
+        /* Card único destacado - Modernizado */
+        .hero-card {
+            background: rgba(13, 15, 26, 0.8);
+            border: 2px solid rgba(0, 159, 253, 0.3);
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: 650px;
+            margin: 40px auto;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        
+        .hero-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 159, 253, 0.4);
+            border-color: rgba(0, 159, 253, 0.6);
+        }
+        
+        .hero-card h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+        
+        .hero-card p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #d0e6ff;
+            line-height: 1.7;
+        }
+        
+        .hero-card .price-month {
+            font-size: 1.8rem;
+            margin: 20px 0;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--secondary), #00c6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 8px 20px;
+            display: inline-block;
+            border-radius: 50px;
+            background-color: rgba(0, 159, 253, 0.1);
+        }
+        
+        .hero-card .btn {
+            font-size: 1.2rem;
+            padding: 16px 45px;
+            margin-top: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .hero-card .benefits-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+            text-align: left;
+        }
+        
+        .hero-card .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            background: rgba(0, 159, 253, 0.08);
+            padding: 12px 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-card .benefit-item:hover {
+            background: rgba(0, 159, 253, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .hero-card .benefit-item i {
+            color: var(--secondary);
+            font-size: 1.4rem;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        /* Novos destaques */
+        .features-section {
+            padding: 60px 0;
+            background: var(--dark-bg);
+            position: relative;
+        }
+        
+        .features-highlight {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .feature-box {
+            background: rgba(13, 15, 26, 0.8);
+            border: 1px solid rgba(0, 159, 253, 0.3);
+            border-radius: 15px;
+            padding: 30px 25px;
+            text-align: center;
+            min-width: 220px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            flex: 1;
+            max-width: 250px;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 159, 253, 0.25);
+            border-color: rgba(0, 159, 253, 0.5);
+        }
+        
+        .feature-box i {
+            font-size: 2.8rem;
+            background: linear-gradient(45deg, var(--secondary), #00c6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-box:hover i {
+            transform: scale(1.1);
+        }
+        
+        .feature-box h4 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .feature-box p {
+            font-size: 0.95rem;
+            color: #d0e6ff;
+            line-height: 1.6;
+        }
+        
+        /* Streamings Section Modernizada */
+        .streamings {
+            padding: 100px 0;
+            position: relative;
+            background: var(--dark-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--secondary), #00c6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-title p {
+            color: #d0e6ff;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+        
+        .streaming-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            justify-items: center;
+        }
+        
+        .streaming-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            min-height: 180px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        .streaming-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--secondary);
+            box-shadow: 0 15px 30px rgba(0, 159, 253, 0.2);
+        }
+        
+        .streaming-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+            z-index: 1;
+        }
+        
+        .streaming-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .streaming-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            font-size: 2.5rem;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .streaming-card:hover .streaming-logo {
+            transform: scale(1.15);
+        }
+        
+        .streaming-card h3 {
+            font-size: 1.1rem;
+            margin-top: auto;
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+            padding: 5px 0 0;
+        }
+        
+        /* Logos específicos com cores das marcas */
+        .netflix { 
+            background: linear-gradient(135deg, #e50914, #b20710); 
+        }
+        .netflix i {
+            color: white !important;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+        }
+        
+        .disney { 
+            background: linear-gradient(135deg, #113ccf, #2a5de7); 
+        }
+        
+        .hbo { 
+            background: linear-gradient(135deg, #9617ae, #7a0f8f); 
+        }
+        .hbo i {
+            color: white !important;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+        }
+        
+        .prime { background: linear-gradient(135deg, #00a8e1, #146eb4); }
+        .crunchyroll { background: linear-gradient(135deg, #f78c25, #ff7a00); }
+        .paramount { background: linear-gradient(135deg, #0066ff, #0047cc); }
+        .apple { background: linear-gradient(135deg, #a2aaad, #868e96); }
+        .globo { background: linear-gradient(135deg, #00a859, #008a4e); }
+        .star { background: linear-gradient(135deg, #009cde, #0077b6); }
+        .plus { 
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            position: relative;
+        }
+        
+        /* Ícones brancos com sombra para melhor visibilidade */
+        .streaming-logo i {
+            color: white !important;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .disney i {
+            color: white !important;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            font-size: 1.8rem !important;
+        }
+        
+        .plus .plus-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        /* Benefits Section Modernizada */
+        .benefits {
+            padding: 100px 0;
+            position: relative;
+            background: var(--dark-bg);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .benefit-card {
+            background: rgba(13, 15, 26, 0.8);
+            border-radius: 20px;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 159, 253, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--secondary);
+            box-shadow: 0 20px 40px rgba(0, 159, 253, 0.25);
+        }
+        
+        .benefit-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--secondary), #00c6ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            box-shadow: 0 8px 20px rgba(0, 159, 253, 0.4);
+            transition: transform 0.3s ease;
+        }
+        
+        .benefit-card:hover .benefit-icon {
+            transform: scale(1.1);
+        }
+        
+        .benefit-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .benefit-card p {
+            font-size: 1.05rem;
+            color: #d0e6ff;
+            line-height: 1.7;
+        }
+        
+        /* FAQ Section Modernizada */
+        .faq {
+            padding: 100px 0;
+            position: relative;
+            background: var(--dark-bg);
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .faq-card {
+            background: rgba(13, 15, 26, 0.8);
+            border-radius: 20px;
+            padding: 35px 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 159, 253, 0.2);
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        .faq-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--secondary);
+            box-shadow: 0 15px 35px rgba(0, 159, 253, 0.25);
+        }
+        
+        .faq-card h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .faq-card p {
+            font-size: 1.05rem;
+            color: #d0e6ff;
+            line-height: 1.7;
+        }
+        
+        /* Planos Section Modernizada */
+        .plans {
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            background: var(--dark-bg);
+        }
+        
+        .plans-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .plans h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ffffff, #d0e6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .plans p {
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            color: #d0e6ff;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-lg {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            font-weight: 700;
+        }
+        
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+            width: 100%;
+        }
+        
+        .price-card {
+            background: rgba(13, 15, 26, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        .price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 159, 253, 0.4);
+            border-color: var(--secondary);
+        }
+        
+        .price-card.popular {
+            border-color: #ff9a9e;
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(255, 154, 158, 0.3);
+            z-index: 10;
+        }
+        
+        .price-card.popular:hover {
+            transform: scale(1.03) translateY(-10px);
+            box-shadow: 0 25px 50px rgba(255, 154, 158, 0.4);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--popular-bg);
+            color: #fff;
+            padding: 8px 35px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .price-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--secondary), #00c6ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            box-shadow: 0 8px 20px rgba(0, 159, 253, 0.4);
+            transition: transform 0.3s ease;
+        }
+        
+        .price-card:hover .price-icon {
+            transform: scale(1.1);
+        }
+        
+        .price-card.popular .price-icon {
+            background: var(--popular-bg);
+            box-shadow: 0 8px 20px rgba(255, 154, 158, 0.5);
+        }
+        
+        .price-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        .price-card .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+        
+        .price-card.popular .price {
+            color: #ff6b6b;
+        }
+        
+        .price-card .period {
+            font-size: 1.1rem;
+            color: #d0e6ff;
+            margin-bottom: 12px;
+        }
+        
+        .price-card .price-month {
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        
+        .price-card .features {
+            text-align: left;
+            margin-bottom: 30px;
+            width: 100%;
+            padding: 0 15px;
+        }
+        
+        .price-card .features li {
+            list-style: none;
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            color: #d0e6ff;
+        }
+        
+        .price-card .features li:last-child {
+            border-bottom: none;
+        }
+        
+        .price-card .features i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+            color: var(--success);
+            min-width: 25px;
+        }
+        
+        .price-card .btn-lg {
+            margin-top: auto;
+            width: 100%;
+            max-width: 250px;
+            padding: 14px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .price-card .economy {
+            margin-top: 20px;
+            font-size: 1rem;
+            background: rgba(46, 204, 113, 0.15);
+            color: var(--success);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-align: center;
+            width: 100%;
+            font-weight: 500;
+        }
+        
+        /* Footer Modernizado */
+        footer {
+            background: rgba(10, 12, 22, 0.95);
+            padding: 80px 0 30px;
+            border-top: 1px solid rgba(0, 159, 253, 0.2);
+            position: relative;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: var(--secondary);
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-secondary);
+            border-radius: 10px;
+        }
+        
+        .footer-column p, .footer-column ul li {
+            color: #d0e6ff;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .footer-column ul li:hover {
+            transform: translateX(5px);
+        }
+        
+        .footer-column ul li a {
+            color: #d0e6ff;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-column ul li i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            min-width: 25px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(0, 159, 253, 0.1);
+            color: var(--secondary);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none; /* Removendo sublinhado */
+        }
+        
+        .social-links a:hover {
+            background: var(--gradient-secondary);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #8a9db0;
+            font-size: 1rem;
+        }
+        
+        /* Efeito de partículas otimizado */
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+            
+            .price-grid {
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero {
+                padding: 150px 0 50px;
+            }
+            
+            .hero h2 {
+                font-size: 2.4rem;
+            }
+            
+            .hero p {
+                font-size: 1.15rem;
+            }
+            
+            .hero-card {
+                padding: 40px 30px;
+            }
+            
+            .hero-card h3 {
+                font-size: 1.9rem;
+            }
+            
+            .benefit-card {
+                padding: 35px 25px;
+            }
+            
+            .benefit-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2.2rem;
+            }
+            
+            .faq-card {
+                padding: 30px 25px;
+            }
+        }
+        
+        /* MELHORIAS PARA O MENU MOBILE */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex; /* Visível apenas em mobile */
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(135deg, 
+                    rgba(13, 15, 26, 0.98) 0%, 
+                    rgba(26, 26, 46, 0.98) 50%,
+                    rgba(13, 15, 26, 0.98) 100%);
+                backdrop-filter: blur(25px); /* Mais desfoque */
+                -webkit-backdrop-filter: blur(25px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 25px 0;
+                clip-path: circle(0px at 90% 5%);
+                -webkit-clip-path: circle(0px at 90% 5%);
+                transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Mais rápido */
+                z-index: 999;
+                gap: 30px;
+                opacity: 0;
+                visibility: hidden;
+                box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); /* Sombra suave */
+            }
+            
+            .nav-links.active {
+                clip-path: circle(1500px at 90% 5%);
+                -webkit-clip-path: circle(1500px at 90% 5%);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-links a {
+                font-size: 1.5rem; /* Tamanho maior */
+                padding: 15px 35px;
+                transform: translateY(30px);
+                opacity: 0;
+                transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Mais rápido */
+                border-radius: 50px;
+                background: rgba(255, 255, 255, 0.05);
+                min-width: 220px;
+                text-align: center;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+            }
+            
+            .nav-links a:hover {
+                background: rgba(0, 159, 253, 0.15);
+                transform: translateY(0) scale(1.05);
+            }
+            
+            .nav-links a i {
+                font-size: 1.2rem;
+                color: var(--secondary);
+                min-width: 30px;
+            }
+            
+            .nav-links.active a {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links.active a:nth-child(1) { transition-delay: 0.1s; }
+            .nav-links.active a:nth-child(2) { transition-delay: 0.2s; }
+            .nav-links.active a:nth-child(3) { transition-delay: 0.3s; }
+            .nav-links.active a:nth-child(4) { transition-delay: 0.4s; }
+            
+            .desktop-btn {
+                display: none;
+            }
+            
+            .mobile-btn {
+                display: block;
+                transform: translateY(30px);
+                opacity: 0;
+                transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Mais rápido */
+                transition-delay: 0.5s;
+                margin-top: 30px;
+                width: auto;
+                max-width: 200px;
+                padding: 14px 30px;
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+            
+            .nav-links.active .mobile-btn {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .hero-card .benefits-list {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Ajuste para cards em coluna na seção de destaques */
+            .features-highlight {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .feature-box {
+                max-width: 100%;
+                width: 100%;
+            }
+            
+            .hero-card .price-month {
+                font-size: 1.5rem;
+            }
+            
+            /* Diferenciação visual para seções em mobile */
+            .streamings {
+                background: linear-gradient(135deg, #0d0f1a 0%, #1a1a2e 100%);
+            }
+            
+            .features-section {
+                background: linear-gradient(135deg, #1a1a2e 0%, #0d0f1a 100%);
+            }
+        }
+        
+        @media (min-width: 769px) {
+            /* Diferenciação visual para seções em desktop */
+            .streamings {
+                background: linear-gradient(135deg, #0d0f1a 0%, #16213e 100%);
+            }
+            
+            .features-section {
+                background: linear-gradient(135deg, #16213e 0%, #0d0f1a 100%);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 130px 0 40px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.05rem;
+            }
+            
+            .hero-card {
+                padding: 30px 20px;
+            }
+            
+            .hero-card h3 {
+                font-size: 1.7rem;
+            }
+            
+            .hero-card p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title p {
+                font-size: 1.05rem;
+            }
+            
+            .price-grid {
+                grid-template-columns: 1fr;
+                max-width: 450px;
+                margin: 0 auto;
+            }
+            
+            .price-card {
+                padding: 35px 25px;
+            }
+            
+            .price-card.popular {
+                transform: scale(1);
+            }
+            
+            .price-card.popular:hover {
+                transform: scale(1) translateY(-10px);
+            }
+            
+            .footer-content {
+                gap: 40px;
+            }
+            
+            .nav-links a {
+                font-size: 1.2rem;
+                min-width: 200px;
+                padding: 12px 25px;
+            }
+            
+            .mobile-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .benefit-card {
+                padding: 30px 20px;
+            }
+            
+            .benefit-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .logo i {
+                font-size: 1.6rem;
+            }
+            
+            .hamburger {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .hero-card .price-month {
+                font-size: 1.3rem;
+            }
+            
+            .feature-box {
+                min-width: auto;
+            }
+            
+            .streaming-logo {
+                width: 65px;
+                height: 65px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-cloud"></i>
+                    <h1>Nuvify</h1>
+                </a>
+                <div class="nav-links" id="navLinks">
+                    <a href="#streamings"><i class="fas fa-play-circle"></i> Streamings</a>
+                    <a href="#beneficios"><i class="fas fa-star"></i> Benefícios</a>
+                    <a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a>
+                    <a href="#planos" class="btn btn-accent mobile-btn"><i class="fas fa-tags"></i> Planos</a>
+                </div>
+                <!-- Hamburger visível apenas em mobile -->
+                <button class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="#planos" class="btn btn-accent desktop-btn">Planos</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section com card único -->
+    <section class="hero particles-bg">
+        <div id="particles-hero" class="particles-container"></div>
+        <div class="container hero-content">
+            <h2>Acesso <span>ilimitado</span> a todos os seus streamings favoritos</h2>
+            <p>Netflix, Disney+, Prime Video, HBO Max e muito mais em um único lugar por um preço incrível!</p>
+            
+            <!-- Card único destacado -->
+            <div class="hero-card">
+                <h3>Todos os melhores Streamings</h3>
+                <p>Aproveite nosso plano mais popular e economize mais de <strong>80%</strong> em relação a assinar cada streaming separadamente!</p>
+                
+                <div class="price-month">Equivalente a R$15/mês</div>
+                
+                <a href="#planos" class="btn btn-accent">Ver Planos</a>
+                
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <i class="fas fa-tv"></i>
+                        <div>Mais de 10.000 canais</div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-film"></i>
+                        <div>Filmes e séries on demand</div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-headset"></i>
+                        <div>Suporte especializado</div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div>1 tela simultânea</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Novos destaques -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Destaques Exclusivos</h2>
+                <p>Descubra as principais vantagens da nossa plataforma</p>
+            </div>
+            
+            <div class="features-highlight">
+                <div class="feature-box">
+                    <i class="fas fa-tv"></i>
+                    <h4>Mais de 10.000 Canais</h4>
+                    <p>Todos os canais nacionais e internacionais que você precisa</p>
+                </div>
+                
+                <div class="feature-box">
+                    <i class="fas fa-film"></i>
+                    <h4>Conteúdo On Demand</h4>
+                    <p>Filmes e séries disponíveis a qualquer momento</p>
+                </div>
+                
+                <div class="feature-box">
+                    <i class="fas fa-headset"></i>
+                    <h4>Suporte Técnico</h4>
+                    <p>Assistência especializada sempre que precisar</p>
+                </div>
+                
+                <div class="feature-box">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>1 Tela Simultânea</h4>
+                    <p>Assista em um dispositivo por vez</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Streamings Section com logos melhorados -->
+    <section class="streamings" id="streamings">
+        <div class="container">
+            <div class="section-title">
+                <h2>Todos os Streamings em Um Lugar</h2>
+                <p>Acesso completo às principais plataformas de streaming do mercado</p>
+            </div>
+            
+            <div class="streaming-grid">
+                <div class="streaming-card">
+                    <div class="streaming-logo netflix">
+                        <strong style="font-size: 1.6rem; font-weight: 900; letter-spacing: -1px;">N</strong>
+                    </div>
+                    <h3>Netflix</h3>
+                </div>
+                
+                <div class="streaming-card">
+                    <div class="streaming-logo disney">
+                        <i class="fas fa-chess-rook" style="font-size: 1.8rem;"></i>
+                    </div>
+                    <h3>Disney+</h3>
+                </div>
+                
+                <div class="streaming-card">
+                    <div class="streaming-logo prime">
+                        <i class="fab fa-amazon"></i>
+                    </div>
+                    <h3>Prime Video</h3>
+                </div>
+                
+                <div class="streaming-card">
+                    <div class="streaming-logo hbo">
+                        <strong style="font-size: 1.3rem; font-weight: 900;">HBO</strong>
+                    </div>
+                    <h3>HBO Max</h3>
+                </div>
+                
+                <div class="streaming-card">
+                    <div class="streaming-logo crunchyroll">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                    <h3>Crunchyroll</h3>
+                </div>
+                
+                <div class="streaming-card">
+                    <div class="streaming-logo paramount">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3>Paramount+</h3>
+                </div>
+                
+                <div class="streaming-card">
+                    <div class="streaming-logo apple">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                    <h3>Apple TV+</h3>
+                </div>
+                
+                <div class="streaming-card">
+                    <div class="streaming-logo globo">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3>Globoplay</h3>
+                </div>
+                
+                <div class="streaming-card">
+                    <div class="streaming-logo star">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Star+</h3>
+                </div>
+                
+                <!-- Card adicional "Muito mais" -->
+                <div class="streaming-card">
+                    <div class="streaming-logo plus">
+                        <span class="plus-icon">+</span>
+                    </div>
+                    <h3>Muito mais!</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits particles-bg" id="beneficios">
+        <div id="particles-benefits" class="particles-container"></div>
+        <div class="container">
+            <div class="section-title">
+                <h2>Por que escolher a Nuvify?</h2>
+                <p>Descubra todas as vantagens da nossa assinatura premium</p>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Economia</h3>
+                    <p>Acesso a todos os streamings por menos de 10% do valor de assinar individualmente</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3>Conteúdo Ilimitado</h3>
+                    <p>Mais de 100.000 filmes, séries e programas disponíveis 24 horas por dia</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h3>Multiplataforma</h3>
+                    <p>Assista em qualquer dispositivo: Smart TV, celular, tablet ou computador</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Instalação Rápida</h3>
+                    <p>Configuramos tudo para você em menos de 10 minutos após a compra</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Suporte 24/7</h3>
+                    <p>Equipe especializada disponível a qualquer momento para ajudar</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Sem Fidelidade</h3>
+                    <p>Cancele quando quiser sem taxas ou multas</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <h3>10.000+ Canais</h3>
+                    <p>Acesso a mais de 10.000 canais nacionais e internacionais</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3>Conteúdo On Demand</h3>
+                    <p>Filmes e séries disponíveis quando você quiser assistir</p>
+                </div>
+                
+                <!-- Card adicional "Muito mais" -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>E muito mais!</h3>
+                    <p>Novos conteúdos adicionados constantemente para sua diversão</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Perguntas Frequentes</h2>
+                <p>Tire suas dúvidas sobre nosso serviço</p>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-card">
+                    <h3>Como funciona o serviço?</h3>
+                    <p>Após a assinatura, você recebe um e-mail com instruções para configurar o serviço em até 10 minutos. Nosso suporte está disponível 24/7 para ajudar no processo.</p>
+                </div>
+                
+                <div class="faq-card">
+                    <h3>Preciso de algum equipamento especial?</h3>
+                    <p>Não! A Nuvify funciona em qualquer dispositivo com conexão à internet: Smart TV, celular, tablet, computador ou TV Box.</p>
+                </div>
+                
+                <div class="faq-card">
+                    <h3>Posso assistir em vários dispositivos?</h3>
+                    <p>Sim! Você pode assistir em até 3 dispositivos simultaneamente com uma única assinatura.</p>
+                </div>
+                
+                <div class="faq-card">
+                    <h3>Existe fidelidade no contrato?</h3>
+                    <p>Não há fidelidade. Você pode cancelar a qualquer momento sem taxas adicionais.</p>
+                </div>
+                
+                <div class="faq-card">
+                    <h3>Como é feito o pagamento?</h3>
+                    <p>O pagamento é mensal e recorrente, feito por cartão de crédito ou Pix. Oferecemos também planos anuais com desconto.</p>
+                </div>
+                
+                <div class="faq-card">
+                    <h3>O serviço tem garantia?</h3>
+                    <p>Sim! Oferecemos garantia de 7 dias. Se não gostar do serviço, devolvemos seu dinheiro.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planos Section (no final da página) -->
+    <section class="plans particles-bg" id="planos">
+        <div id="particles-plans" class="particles-container"></div>
+        <div class="container">
+            <div class="plans-content">
+                <h2>Nossos planos</h2>
+                <p>Temos opções para todos os tipos de usuários. Encontre o plano que melhor atende às suas necessidades.</p>
+                
+                <div class="price-grid">
+                    <!-- Plano Mensal -->
+                    <div class="price-card">
+                        <div class="price-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>Plano Mensal</h3>
+                        <div class="price">R$39</div>
+                        <div class="period">por mês</div>
+                                                <div class="price-month">Equivalente a R$39/mês</div>
+
+                        
+                        <ul class="features">
+                            <li><i class="fas fa-check-circle"></i> Todos os streamings</li>
+                            <li><i class="fas fa-check-circle"></i> Suporte 24/7</li>
+                            <li><i class="fas fa-check-circle"></i> Sem fidelidade</li>
+                            <li><i class="fas fa-check-circle"></i> 1 tela simultânea</li>
+                        </ul>
+                        
+                        <a href="#" class="btn btn-lg">Em Breve </a>
+                        <div class="economy">Sem Desconto</div>
+
+                    </div>
+                    
+                    <!-- Plano Trimestral - DESTAQUE -->
+                    <div class="price-card popular">
+                        <div class="popular-badge">POPULAR</div>
+                        <div class="price-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Plano Trimestral</h3>
+                        <div class="price">R$99</div>
+                        <div class="period">a cada 3 meses</div>
+                        <div class="price-month">Equivalente a R$33/mês</div>
+                        
+                        <ul class="features">
+                            <li><i class="fas fa-check-circle"></i> Todos os streamings</li>
+                            <li><i class="fas fa-check-circle"></i> Suporte prioritário</li>
+                            <li><i class="fas fa-check-circle"></i> Sem fidelidade</li>
+                            <li><i class="fas fa-check-circle"></i> 1 tela simultânea</li>
+                        </ul>
+                        
+                        <a href="#" class="btn btn-accent btn-lg">Em Breve </a>
+                        <div class="economy">Economize R$20</div>
+                    </div>
+                    
+                    <!-- Plano Anual -->
+                    <div class="price-card">
+                        <div class="price-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3>Plano Anual</h3>
+                        <div class="price">R$279</div>
+                        <div class="period">por ano</div>
+                        <div class="price-month">Equivalente a R$24/mês</div>
+                        
+                        <ul class="features">
+                            <li><i class="fas fa-check-circle"></i> Todos os streamings</li>
+                            <li><i class="fas fa-check-circle"></i> Suporte VIP</li>
+                            <li><i class="fas fa-check-circle"></i> Sem fidelidade</li>
+                            <li><i class="fas fa-check-circle"></i> 1 tela simultânea</li>
+                        </ul>
+                        
+                        <a href="#" class="btn btn-lg">Em Breve </a>
+                        <div class="economy">Economize R$200</div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 30px; color: #d0e6ff; font-size: 0.95rem;">
+                    <i class="fas fa-lock"></i> Pagamento 100% seguro | Garantia de 7 dias
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Nuvify</h3>
+                    <p>O melhor serviço de IPTV com acesso a todos os principais streamings por um preço único e acessível.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Início</a></li>
+                        <li><a href="#streamings"><i class="fas fa-play-circle"></i> Streamings</a></li>
+                        <li><a href="#beneficios"><i class="fas fa-star"></i> Benefícios</a></li>
+                        <li><a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                        <li><a href="#planos"><i class="fas fa-tags"></i> Planos</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><a href="mailto:davi.arziviani@gmail.com"><i class="fas fa-envelope"></i> davi.arziviani@gmail.com</a></li>
+                        <li><a href="tel:+5531988422397"><i class="fab fa-whatsapp"></i> (31) 98842-2397</a></li>
+                        <li><a href="#"><i class="fas fa-headset"></i> Suporte 24/7</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Belo Horizonte, MG</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Informações</h3>
+                    <ul>
+                        <li><a href="politica-privacidade.html"><i class="fas fa-shield-alt"></i> Política de Privacidade</a></li>
+                        <li><a href="termos-uso.html"><i class="fas fa-file-contract"></i> Termos de Uso</a></li>
+                        <li><a href="politica-reembolso.html"><i class="fas fa-sync-alt"></i> Política de Reembolso</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Nuvify. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Hamburguer Melhorado (somente para mobile)
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const body = document.body;
+        
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenu();
+        });
+        
+        function toggleMenu() {
+            const isActive = navLinks.classList.contains('active');
+            
+            if (isActive) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        }
+        
+        function openMenu() {
+            navLinks.classList.add('active');
+            body.classList.add('menu-open');
+            hamburger.innerHTML = '<i class="fas fa-times"></i>';
+            body.style.overflow = 'hidden';
+        }
+        
+        function closeMenu() {
+            navLinks.classList.remove('active');
+            body.classList.remove('menu-open');
+            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            body.style.overflow = '';
+        }
+        
+        // Fechar menu ao clicar fora dele
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && 
+                !navLinks.contains(e.target) && 
+                !hamburger.contains(e.target)) {
+                closeMenu();
+            }
+        });
+        
+        // Fechar menu ao pressionar ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Fechar menu mobile após clicar em um link
+                if (navLinks.classList.contains('active')) {
+                    setTimeout(() => {
+                        closeMenu();
+                    }, 300);
+                }
+            });
+        });
+        
+        // Header scroll effect
+        let lastScrollY = window.scrollY;
+        
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > 50) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.5)';
+                header.style.padding = '12px 0';
+            } else {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+                header.style.padding = '15px 0';
+            }
+            
+            // Fechar menu se estiver aberto durante scroll
+            if (navLinks.classList.contains('active') && Math.abs(currentScrollY - lastScrollY) > 50) {
+                closeMenu();
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+        
+        // Sistema de partículas otimizado
+        function createParticles(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            // Verificar se é dispositivo móvel
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            
+            // Ajuste de partículas para melhor visibilidade
+            const particleCount = isMobile ? 
+                Math.min(35, Math.floor(container.offsetWidth * container.offsetHeight / 2000)) : 
+                Math.min(80, Math.floor(container.offsetWidth * container.offsetHeight / 2000));
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            container.appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
+            const particles = [];
+            
+            // Criar partículas mais visíveis
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 3 + 1.5, // Aumentar tamanho
+                    speedX: (Math.random() - 0.5) * 0.5,
+                    speedY: (Math.random() - 0.5) * 0.5,
+                    color: `rgba(0, 200, 255, ${Math.random() * 0.6 + 0.4})` // Cor mais clara e visível
+                });
+            }
+            
+            // Função para animar partículas
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Atualizar e desenhar partículas
+                particles.forEach(particle => {
+                    particle.x += particle.speedX;
+                    particle.y += particle.speedY;
+                    
+                    // Rebater nas bordas
+                    if (particle.x <= 0 || particle.x >= canvas.width) particle.speedX *= -1;
+                    if (particle.y <= 0 || particle.y >= canvas.height) particle.speedY *= -1;
+                    
+                    // Desenhar partícula
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                    
+                    // Criar efeito de brilho
+                    const gradient = ctx.createRadialGradient(
+                        particle.x, particle.y, 0,
+                        particle.x, particle.y, particle.radius
+                    );
+                    gradient.addColorStop(0, `rgba(0, 200, 255, 0.8)`);
+                    gradient.addColorStop(1, `rgba(0, 150, 255, 0.2)`);
+                    
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                });
+                
+                // Desenhar conexões entre partículas
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 150) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(0, 200, 255, ${0.25 * (1 - distance/150)})`;
+                            ctx.lineWidth = 0.8;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(animateParticles);
+            }
+            
+            animateParticles();
+            
+            // Redimensionar canvas quando a janela mudar de tamanho
+            window.addEventListener('resize', () => {
+                canvas.width = container.offsetWidth;
+                canvas.height = container.offsetHeight;
+            });
+        }
+        
+        // Inicializar partículas quando a página carregar
+        window.addEventListener('load', () => {
+            createParticles('particles-hero');
+            createParticles('particles-benefits');
+            createParticles('particles-plans');
+        });
+        
+        // Animação suave ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.8s ease';
+        });
+        
+        // Configuração inicial do body para animação de entrada
+        document.body.style.opacity = '0';
+    </script>
+</body>
+</html>
